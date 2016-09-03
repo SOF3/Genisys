@@ -1810,7 +1810,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			if($this->chunk !== null){
 				$this->level->addEntityMotion($this->chunk->getX(), $this->chunk->getZ(), $this->getId(), $this->motionX, $this->motionY, $this->motionZ);
 				$pk = new SetEntityMotionPacket();
-				$pk->entities[] = [0, $mot->x, $mot->y, $mot->z];
+				$pk->eid = 0;
+				$pk->motionX = $mot->x;
+				$pk->motionY = $mot->y;
+				$pk->motionZ = $mot->z;
 				$this->dataPacket($pk);
 			}
 
@@ -2224,8 +2227,8 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$spawnPosition = $this->getSpawn();
 
 		$pk = new StartGamePacket();
-		$pk->entityUniqueId = $this->getId();
-		$pk->entityRuntimeId = $this->getId();
+		$pk->entityUniqueId = 0;
+		$pk->entityRuntimeId = 0;
 		$pk->x = $this->x;
 		$pk->y = $this->y;
 		$pk->z = $this->z;
